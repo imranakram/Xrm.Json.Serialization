@@ -1,7 +1,7 @@
-﻿namespace Innofactor.Xrm.Json.Serialization.Tests
+﻿namespace Xrm.Json.Serialization.Tests
 {
     using System.Globalization;
-    using Innofactor.Xrm.Json.Serialization;
+    using Xrm.Json.Serialization;
     using Newtonsoft.Json;
     using Xunit;
 

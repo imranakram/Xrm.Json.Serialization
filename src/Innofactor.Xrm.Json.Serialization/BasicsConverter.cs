@@ -1,4 +1,4 @@
-﻿namespace Innofactor.Xrm.Json.Serialization
+﻿namespace Xrm.Json.Serialization
 {
     using System;
     using System.CodeDom;

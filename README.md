@@ -1,41 +1,28 @@
 # Xrm.Json.Serialization
 
-Library provides simple JSON serialization / deserialization functionality that will process MS Dynamics CRM entities nicely. It provides simple and compact output and requires minimum configuration. Library uses [JSON.NET](https://www.newtonsoft.com/json/) as an engine for its operation.
+Compact JSON serialization for Microsoft Dynamics 365/CRM/Dataverse entities using Newtonsoft.Json.
 
-To enable MS Dynamics CRM specific rules, custom JSON.NET converters need to be registered before performing serialization / deserialization:
+## Features
 
-```c#
-JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-{
-    Converters = new List<JsonConverter>()
-    {
-        new EntityCollectionConverter(),
-        new EntityConverter(),
-        new EntityReferenceConverter(),
-        new MoneyConverter(),
-        new OptionSetConvertor()
-    }
-};
-```
+- Full support for Entity, EntityReference, EntityCollection
+- OptionSetValue, Money, DateTime, Guid converters
+- CRM-optimized type handling
+- Built for .NET Framework 4.8 with Dynamics 365 SDK 9.x
 
-When all custom converters are registered, it's possible to supply entity to the JSON.NET engine:
+## Installation
 
-```c#
-// Creating dummy entity with one OptionSet attribute
-var entity = new Entity("test", Guid.NewGuid());
-entity.Attributes.Add("attribute1", new OptionSetValue(1));
+```powershell
+Install-Package Xrm.Json.Serialization
+``` 
 
-// Performing conversion
-var json = JsonConvert.SerializeObject(entity, Formatting.Indented);
-```
+## Quick Start
 
-Resulting JSON will look like following:
+```csharp
+using Xrm.Json.Serialization;
+using Microsoft.Xrm.Sdk;
+using Newtonsoft.Json;
 
-```json
-{
-  "_reference": "test:16118a60-4346-46ab-8cf7-7e2bd9233b2f",
-  "attribute1": {
-    "_option": 1
-  }
-}
+var entity = new Entity(\"account\", Guid.NewGuid());
+entity[\"name\"] = \"Contoso\";
+string json = JsonConvert.SerializeObject(entity, new EntityConverter());
 ```

@@ -1,6 +1,6 @@
-﻿namespace Innofactor.Xrm.Json.Serialization.Tests
+﻿namespace Xrm.Json.Serialization.Tests
 {
-    using Innofactor.Xrm.Json.Serialization;
+    using Xrm.Json.Serialization;
     using Microsoft.Xrm.Sdk;
     using Newtonsoft.Json;
     using Xunit;

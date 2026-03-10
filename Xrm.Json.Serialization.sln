@@ -1,15 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innofactor.Xrm.Json.Serialization", "src\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj", "{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innofactor.Xrm.Json.Serialization", "Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj", "{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innofactor.Xrm.Json.Serialization.Tests", "src\Innofactor.Xrm.Json.Serialization.Tests\Innofactor.Xrm.Json.Serialization.Tests.csproj", "{FFC3DF0D-024D-4193-80EB-16755A283F8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innofactor.Xrm.Json.Serialization.Tests", "Innofactor.Xrm.Json.Serialization.Tests\Innofactor.Xrm.Json.Serialization.Tests.csproj", "{FFC3DF0D-024D-4193-80EB-16755A283F8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{A5DE8D43-CD6C-4DE8-A35F-DE24ABBCB9A1}"
 	ProjectSection(SolutionItems) = preProject
-		src\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.nuspec = src\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.nuspec
+		Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.nuspec = Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.nuspec
 	EndProjectSection
 EndProject
 Global

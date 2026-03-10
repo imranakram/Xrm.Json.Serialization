@@ -181,9 +181,9 @@
     <Analyzer Include="..\packages\xunit.analyzers.1.0.0\analyzers\dotnet\cs\xunit.analyzers.fixes.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj">
+    <ProjectReference Include="..\Xrm.Json.Serialization\Xrm.Json.Serialization.csproj">
       <Project>{19d18e8d-e967-4cbe-8822-617bd1feeaa4}</Project>
-      <Name>Innofactor.Xrm.Json.Serialization</Name>
+      <Name>Xrm.Json.Serialization</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

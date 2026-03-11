@@ -20,13 +20,16 @@
         {
             converters = new Dictionary<Type, JsonConverter>()
             {
+                { typeof(AliasedValue), new AliasedValueConverter() },
+                { typeof(BooleanManagedProperty), new BooleanManagedPropertyConverter() },
                 { typeof(DateTime), new DateTimeConverter()},
                 { typeof(Entity), new EntityConverter() },
                 { typeof(EntityCollection), new EntityCollectionConverter() },
                 { typeof(EntityReference), new EntityReferenceConverter() },
                 { typeof(Guid), new GuidConverter() },
                 { typeof(Money), new MoneyConverter() },
-                { typeof(OptionSetValue), new OptionSetConverter()}
+                { typeof(OptionSetValue), new OptionSetConverter()},
+                { typeof(OptionSetValueCollection), new OptionSetValueCollectionConverter() }
             };
         }
 

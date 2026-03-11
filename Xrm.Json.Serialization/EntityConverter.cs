@@ -39,6 +39,42 @@
 
                         switch (reader.Value)
                         {
+                            case "_aliased":
+                                var aliasedStr = reader.ReadAsString();
+                                var aliasedParts = aliasedStr.Split('|');
+                                if (aliasedParts.Length >= 3)
+                                {
+                                    var entityLogicalName = aliasedParts[0];
+                                    var attributeLogicalName = aliasedParts[1];
+                                    var aliasedValue = DeserializeAliasedValue(aliasedParts[2]);
+                                    value = new AliasedValue(entityLogicalName, attributeLogicalName, aliasedValue);
+                                }
+                                reader.Read();
+                                break;
+
+                            case "_options":
+                                var optionsList = new OptionSetValueCollection();
+                                reader.Read();
+                                while (reader.TokenType != JsonToken.EndArray)
+                                {
+                                    if (reader.TokenType == JsonToken.Integer)
+                                    {
+                                        optionsList.Add(new OptionSetValue((int)(long)reader.Value));
+                                    }
+                                    reader.Read();
+                                }
+                                value = optionsList;
+                                reader.Read();
+                                break;
+
+                            case "_boolmanaged":
+                                var boolParts = reader.ReadAsString().Split('|');
+                                var boolValue = boolParts.Length > 0 && bool.Parse(boolParts[0]);
+                                var canBeChanged = boolParts.Length > 1 ? bool.Parse(boolParts[1]) : true;
+                                value = new BooleanManagedProperty(boolValue) { CanBeChanged = canBeChanged };
+                                reader.Read();
+                                break;
+
                             case "_option":
                                 // Skipping to property value of the object
                                 value = new OptionSetValue((int)reader.ReadAsInt32());
@@ -135,5 +171,44 @@
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private static object DeserializeAliasedValue(string serialized)
+        {
+            if (string.IsNullOrEmpty(serialized))
+                return null;
+
+            if (serialized.StartsWith("ref:"))
+            {
+                var parts = serialized.Substring(4).Split(':');
+                if (parts.Length == 2)
+                    return new EntityReference(parts[0], Guid.Parse(parts[1]));
+            }
+            else if (serialized.StartsWith("opt:"))
+            {
+                return new OptionSetValue(int.Parse(serialized.Substring(4)));
+            }
+            else if (serialized.StartsWith("mon:"))
+            {
+                return new Money(decimal.Parse(serialized.Substring(4)));
+            }
+            else if (serialized.StartsWith("dt:"))
+            {
+                return DateTime.Parse(serialized.Substring(3));
+            }
+            else if (serialized.StartsWith("guid:"))
+            {
+                return Guid.Parse(serialized.Substring(5));
+            }
+            else if (serialized.StartsWith("bool:"))
+            {
+                return bool.Parse(serialized.Substring(5));
+            }
+
+            return serialized;
+        }
+
+        #endregion Private Methods
     }
 }

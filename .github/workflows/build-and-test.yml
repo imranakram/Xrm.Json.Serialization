@@ -29,7 +29,20 @@ jobs:
       run: msbuild /p:Configuration=Release /p:Platform="Any CPU" /verbosity:minimal
       
     - name: Run tests
-      run: vstest.console.exe "Xrm.Json.Serialization.Tests\bin\Release\Xrm.Json.Serialization.Tests.dll" /TestAdapterPath:"packages\xunit.runner.visualstudio.2.5.3\build\net462" /Logger:console
+      shell: pwsh
+      run: |
+        $vstest = "${env:ProgramFiles}\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
+        if (-not (Test-Path $vstest)) {
+          $vstest = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
+        }
+        if (-not (Test-Path $vstest)) {
+          Write-Host "Installing xunit console runner..."
+          nuget install xunit.runner.console -Version 2.9.3 -OutputDirectory packages
+          $xunit = "packages\xunit.runner.console.2.9.3\tools\net462\xunit.console.exe"
+          & $xunit "Xrm.Json.Serialization.Tests\bin\Release\Xrm.Json.Serialization.Tests.dll" -xml TestResults.xml
+        } else {
+          & $vstest "Xrm.Json.Serialization.Tests\bin\Release\Xrm.Json.Serialization.Tests.dll" /TestAdapterPath:"packages\xunit.runner.visualstudio.2.5.3\build\net462" /Logger:console
+        }
       
     - name: Upload test results
       if: always()

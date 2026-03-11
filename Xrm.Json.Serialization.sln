@@ -13,7 +13,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{A5DE8D43
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8B877E5D-9440-4F5A-839F-DF0D98FE1F3E}"
 	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		GITHUB-ACTIONS-SETUP.md = GITHUB-ACTIONS-SETUP.md
 		icon.png = icon.png
+		LICENSE = LICENSE
+		README.md = README.md
+		UPGRADE-GUIDE.md = UPGRADE-GUIDE.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{2B58631B-9D4B-4866-A4ED-FDE347BFBB87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{8CD25595-B36D-4C73-A33C-25CF14E74713}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
 	EndProjectSection
 EndProject
 Global
@@ -33,6 +46,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8CD25595-B36D-4C73-A33C-25CF14E74713} = {2B58631B-9D4B-4866-A4ED-FDE347BFBB87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E3B2D97-5450-4063-BC9C-08046DE625A9}

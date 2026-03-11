@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
 	<id>Xrm.Json.Serialization</id>
-	<version>1.1.0</version>
+	<version>1.2026.3.0</version>
 	<title>Xrm.Json.Serialization</title>
 	<authors>Alexey Shytikov and Imran Akram</authors>
 	<owners>Imran Akram</owners>
@@ -15,13 +15,13 @@
 	<readme>README.md</readme>
 	<tags>dynamics365 crm dataverse dynamics xrm json serialization entity entityreference optionset aliasedvalue fetchxml plugin</tags>
 	<releaseNotes>
-Version 1.1.0:
+Version 1.2026.3.0 (March 2026):
 - NEW: AliasedValue converter for FetchXML linked entity support
 - NEW: OptionSetValueCollection converter for multi-select picklists
 - NEW: BooleanManagedProperty converter
 - NEW: EntitySerializer helper class for simplified usage
 - FIX: String escaping issue with double quotes (#20)
-- Changed target to .NET Framework 4.6.2 for plugin compatibility
+- Target: .NET Framework 4.6.2 (plugin compatible)
 - Added comprehensive plugin usage examples
 	</releaseNotes>
 	<dependencies>

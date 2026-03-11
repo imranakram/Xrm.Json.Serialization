@@ -2,6 +2,7 @@
 
 Compact JSON serialization library for Microsoft Dynamics 365/CRM/Dataverse entities using Newtonsoft.Json.
 
+[![Build and Test](https://github.com/imranakram/Xrm.Json.Serialization/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/imranakram/Xrm.Json.Serialization/actions/workflows/build-and-test.yml)
 [![NuGet](https://img.shields.io/nuget/v/Xrm.Json.Serialization.svg)](https://www.nuget.org/packages/Xrm.Json.Serialization)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -48,7 +49,7 @@ dotnet add package Xrm.Json.Serialization
 
 ### Package Reference
 ```xml
-<PackageReference Include="Xrm.Json.Serialization" Version="1.0.0" />
+<PackageReference Include="Xrm.Json.Serialization" Version="1.2026.3.0" />
 ```
 
 ## Usage
@@ -561,17 +562,21 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Changelog
 
-### Version 1.1.0
+### Version 1.2026.3.0 (March 2026)
 - ✅ **NEW:** AliasedValue converter for FetchXML linked entity support
 - ✅ **NEW:** OptionSetValueCollection converter for multi-select picklists
 - ✅ **NEW:** BooleanManagedProperty converter
 - ✅ **NEW:** EntitySerializer helper class for simplified usage
 - ✅ **FIX:** String escaping issue with double quotes and special characters (#20)
-- ✅ **TARGET:** Changed to .NET Framework 4.6.2 for plugin compatibility
+- ✅ **TARGET:** .NET Framework 4.6.2 (plugin compatible)
 - ✅ **DOCS:** Added comprehensive plugin usage examples
 - ✅ **TESTS:** Added 27 new tests for new converters
 
-### Version 1.0.0
+### Version 1.2022.10.1 (October 2022)
+- Namespace change from Innofactor.Xrm.Json.Serialization to Xrm.Json.Serialization
+- Package metadata updates
+
+### Version 1.0.0 (2021)
 - Initial release
 - Support for all major Dynamics 365 data types
 - Entity, EntityReference, EntityCollection converters

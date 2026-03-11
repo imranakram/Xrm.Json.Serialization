@@ -13,6 +13,8 @@
 	<copyright>Copyright © 2026</copyright>
 	<icon>icon.png</icon>
 	<readme>README.md</readme>
+	<tags>dynamics365 crm dataverse dynamics xrm json serialization entity entityreference optionset</tags>
+	<releaseNotes>Initial release with support for all major Dynamics 365 data types</releaseNotes>
   </metadata>
   <files>
 	<file src="icon.png" target="" />

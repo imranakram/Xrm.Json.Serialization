@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+	<id>Xrm.Json.Serialization</id>
+	<version>2.0.0</version>
+	<title>Xrm.Json.Serialization</title>
+	<authors>Alexey Shytikov, Imran Akram, and contributors</authors>
+	<owners>Biznamics</owners>
+	<projectUrl>https://github.com/Biznamics/Xrm.Json.Serialization</projectUrl>
+	<requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<license type="expression">MIT</license>
+	<description>Compact JSON serialization for Microsoft Dynamics 365/CRM/Dataverse entities using Newtonsoft.Json. Supports Entity, EntityReference, EntityCollection, OptionSetValue, Money, DateTime, Guid, and basic CLR types with CRM-optimized serialization.</description>
+	<copyright>Copyright © Biznamics 2025</copyright>
+	<tags>dynamics365 crm dataverse json serialization xrm entity newtonsoft</tags>
+	<dependencies>
+	  <group targetFramework=".NETFramework4.8">
+		<dependency id="Newtonsoft.Json" version="13.0.3" />
+		<dependency id="Microsoft.CrmSdk.CoreAssemblies" version="9.0.2.46" />
+	  </group>
+	</dependencies>
+  </metadata>
+</package>

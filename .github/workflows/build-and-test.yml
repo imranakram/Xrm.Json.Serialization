@@ -1,0 +1,60 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, vNext, develop ]
+  pull_request:
+    branches: [ main, vNext ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: 'latest'
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Restore NuGet packages
+      run: nuget restore
+      
+    - name: Build solution
+      run: msbuild /p:Configuration=Release /p:Platform="Any CPU" /verbosity:minimal
+      
+    - name: Run tests
+      shell: pwsh
+      run: |
+        $vstest = "${env:ProgramFiles}\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
+        if (-not (Test-Path $vstest)) {
+          $vstest = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
+        }
+        if (-not (Test-Path $vstest)) {
+          Write-Host "Installing xunit console runner..."
+          nuget install xunit.runner.console -Version 2.9.3 -OutputDirectory packages
+          $xunit = "packages\xunit.runner.console.2.9.3\tools\net462\xunit.console.exe"
+          & $xunit "Xrm.Json.Serialization.Tests\bin\Release\Xrm.Json.Serialization.Tests.dll" -xml TestResults.xml
+        } else {
+          & $vstest "Xrm.Json.Serialization.Tests\bin\Release\Xrm.Json.Serialization.Tests.dll" /TestAdapterPath:"packages\xunit.runner.visualstudio.2.5.3\build\net462" /Logger:console
+        }
+      
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: TestResults/
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: |
+          Xrm.Json.Serialization\bin\Release\*.dll
+          Xrm.Json.Serialization\bin\Release\*.pdb

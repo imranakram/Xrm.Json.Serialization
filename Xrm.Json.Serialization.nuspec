@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+	<id>Xrm.Json.Serialization</id>
+	<version>1.0.0</version>
+	<title>Xrm.Json.Serialization</title>
+	<authors>Alexey Shytikov and Imran Akram</authors>
+	<owners>Imran Akram</owners>
+	<projectUrl>https://github.com/imranakram/Xrm.Json.Serialization</projectUrl>
+	<requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<license type="expression">MIT</license>
+	<description>Compact JSON serialization for Microsoft Dynamics 365/CRM/Dataverse entities</description>
+	<copyright>Copyright © 2026</copyright>
+	<icon>icon.png</icon>
+	<readme>README.md</readme>
+  </metadata>
+  <files>
+	<file src="icon.png" target="" />
+	<file src="README.md" target="" />
+  </files>
+</package>

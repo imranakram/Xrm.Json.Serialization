@@ -3,9 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project uses **Calendar Versioning (CalVer)**: `1.YYYY.MM.patch`
 
-## [1.1.0] - 2026-03-11
+## [1.2026.3.0] - 2026-03-11
 
 ### Added
 - **AliasedValue converter** - Critical for FetchXML queries with linked entities
@@ -69,12 +69,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+---
+
+## Versioning
+
+This project uses **Calendar Versioning (CalVer)**: `1.YYYY.MM.patch`
+
+Format: `Major.Year.Month.Patch`
+
+Examples:
+- `1.2026.3.0` - March 2026, first release
+- `1.2026.3.1` - March 2026, patch release
+- `1.2022.10.1` - October 2022
+
+---
+
 ## Version Comparison
 
 | Version | Date | .NET Framework | Key Changes |
 |---------|------|----------------|-------------|
-| **1.1.0** | 2026-03-11 | **4.6.2** | AliasedValue, multi-select, plugin examples, bug fixes |
-| 2.0.0 | 2025-03-10 | 4.8 | Namespace change, package upgrades |
+| **1.2026.3.0** | 2026-03-11 | 4.6.2 | AliasedValue, multi-select, plugin examples, bug #20 fix |
+| 1.2022.10.1 | 2022-10 | 4.6.2 | Namespace change to Xrm.Json.Serialization |
 | 1.0.0 | 2021 | 4.6.2 | Initial release |
 
 ---

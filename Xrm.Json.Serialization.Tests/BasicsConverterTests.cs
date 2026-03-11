@@ -140,7 +140,63 @@
         {
             // Arrange
             var value = "test\"String";
-            var expected = $"\"test\"String\"";
+            var expected = "\"test\\\"String\"";
+
+            // Act
+            var actual = JsonConvert.SerializeObject(value, Formatting.None, new BasicsConverter());
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void String_With_Multiple_Quotes_Can_Serialize()
+        {
+            // Arrange
+            var value = "He said \"Hello\" and she replied \"Hi\"";
+            var expected = "\"He said \\\"Hello\\\" and she replied \\\"Hi\\\"\"";
+
+            // Act
+            var actual = JsonConvert.SerializeObject(value, Formatting.None, new BasicsConverter());
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void String_With_Backslash_Can_Serialize()
+        {
+            // Arrange
+            var value = "C:\\Users\\Test\\File.txt";
+            var expected = "\"C:\\\\Users\\\\Test\\\\File.txt\"";
+
+            // Act
+            var actual = JsonConvert.SerializeObject(value, Formatting.None, new BasicsConverter());
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void String_With_Newline_Can_Serialize()
+        {
+            // Arrange
+            var value = "Line1\nLine2";
+            var expected = "\"Line1\\nLine2\"";
+
+            // Act
+            var actual = JsonConvert.SerializeObject(value, Formatting.None, new BasicsConverter());
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void String_With_Tab_Can_Serialize()
+        {
+            // Arrange
+            var value = "Column1\tColumn2";
+            var expected = "\"Column1\\tColumn2\"";
 
             // Act
             var actual = JsonConvert.SerializeObject(value, Formatting.None, new BasicsConverter());

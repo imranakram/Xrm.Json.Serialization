@@ -81,7 +81,7 @@ jobs:
         body: |
           ## Release ${{ steps.get_version.outputs.VERSION }}
 
-          See [CHANGELOG.md](https://github.com/imranakram/Xrm.Json.Serialization/blob/main/CHANGELOG.md) for details.
+          See [CHANGELOG.md](https://github.com/imranakram/Xrm.Json.Serialization/blob/master/CHANGELOG.md) for details.
         draft: false
         prerelease: false
       env:

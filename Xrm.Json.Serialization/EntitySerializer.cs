@@ -1,4 +1,4 @@
-namespace Xrm.Json.Serialization
+﻿namespace Xrm.Json.Serialization
 {
     using Microsoft.Xrm.Sdk;
     using Newtonsoft.Json;
@@ -9,13 +9,13 @@ namespace Xrm.Json.Serialization
 
         private static readonly JsonSerializerSettings DefaultSettings = new JsonSerializerSettings
         {
-            ContractResolver = new XrmContractResolver(),
+            ContractResolver = XrmContractResolver.Shared,
             NullValueHandling = NullValueHandling.Ignore
         };
 
         private static readonly JsonSerializerSettings IndentedSettings = new JsonSerializerSettings
         {
-            ContractResolver = new XrmContractResolver(),
+            ContractResolver = XrmContractResolver.Shared,
             Formatting = Formatting.Indented,
             NullValueHandling = NullValueHandling.Ignore
         };

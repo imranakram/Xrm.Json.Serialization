@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
 	<id>Xrm.Json.Serialization</id>
-	<version>1.2026.3.0</version>
+	<version>1.2026.9.0</version>
 	<title>Xrm.Json.Serialization</title>
 	<authors>Alexey Shytikov and Imran Akram</authors>
 	<owners>Imran Akram</owners>
@@ -15,14 +15,14 @@
 	<readme>README.md</readme>
 	<tags>dynamics365 crm dataverse dynamics xrm json serialization entity entityreference optionset aliasedvalue fetchxml plugin</tags>
 	<releaseNotes>
-Version 1.2026.3.0 (March 2026):
-- NEW: AliasedValue converter for FetchXML linked entity support
-- NEW: OptionSetValueCollection converter for multi-select picklists
-- NEW: BooleanManagedProperty converter
-- NEW: EntitySerializer helper class for simplified usage
-- FIX: String escaping issue with double quotes (#20)
-- Target: .NET Framework 4.6.2 (plugin compatible)
-- Added comprehensive plugin usage examples
+Version 1.2026.9.0 (September 2026):
+- FIX: ~240x faster bulk serialization. The converters no longer allocate a new
+  XrmContractResolver per call, which was discarding Newtonsoft's per-instance
+  contract cache and re-resolving every type by reflection on every entity.
+  100 000 entities: 82.31 s -> 0.34 s, byte-identical output.
+- TESTS: 9 new tests pinning resolver sharing and bulk throughput.
+- DOCS: New Performance section on settings reuse and the DefaultSettings factory pitfall.
+- No change to the JSON format, the public API or the target framework - drop-in upgrade.
 	</releaseNotes>
 	<dependencies>
 	  <group targetFramework="net462">

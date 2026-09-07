@@ -144,6 +144,7 @@
     <Compile Include="AliasedValueConverterTests.cs" />
     <Compile Include="BooleanManagedPropertyConverterTests.cs" />
     <Compile Include="CombinedTypesTests.cs" />
+    <Compile Include="ContractResolverCachingTests.cs" />
     <Compile Include="DateTimeConverterTests.cs" />
     <Compile Include="EntityCollectionConverterTests.cs" />
     <Compile Include="EntityReferenceConverterTests.cs" />

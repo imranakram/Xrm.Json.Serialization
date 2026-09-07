@@ -149,7 +149,13 @@
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.ContractResolver = new XrmContractResolver();
+            if (!(serializer.ContractResolver is XrmContractResolver))
+            {
+                // Only replace a resolver that is not already ours. Assigning a new instance
+                // unconditionally discarded the contract cache on every call - see
+                // XrmContractResolver.Shared.
+                serializer.ContractResolver = XrmContractResolver.Shared;
+            }
 
             var entity = value as Entity;
 

@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project uses **Calendar Versioning (CalVer)**: `1.YYYY.MM.patch`
 
+## [1.2026.9.0] - 2026-09-07
+
+### Fixed
+- **Bulk serialization performance** - `EntityConverter` and `EntityCollectionConverter` assigned
+  `serializer.ContractResolver = new XrmContractResolver()` on every call. Newtonsoft's
+  `DefaultContractResolver` caches the `JsonContract` it builds for each type on the instance, so a
+  fresh instance per call discarded that cache and forced every type on the graph to be re-resolved
+  by reflection. The converters now route through a single shared resolver.
+  Measured at 100 000 entities of five attributes each (.NET Framework 4.8, x64): **82.31 s -> 0.34 s**,
+  byte-identical output. For reference, plain reflective Newtonsoft on the same objects takes 1.03 s.
+- `XrmContractResolver.ResolveContractConverter` no longer allocates a `BasicsConverter` per
+  resolution for types without a dedicated converter.
+
+### Added
+- 9 tests in `ContractResolverCachingTests` covering resolver sharing across repeated and nested
+  calls, replacement of a foreign resolver, a round trip over all 13 supported attribute types, and
+  a bulk-throughput guard that fails if the per-call allocation returns.
+- `Performance` section in the README, including guidance on reusing a `JsonSerializerSettings`
+  instance and the `JsonConvert.DefaultSettings` factory pitfall.
+
+### Changed
+- `InternalsVisibleTo("Xrm.Json.Serialization.Tests")` so the tests can assert on the shared
+  resolver instance without making `XrmContractResolver` part of the public API.
+
+### Compatibility
+No change to the JSON format, the public API or the target framework. This is a drop-in upgrade.
+
 ## [1.2026.3.0] - 2026-03-11
 
 ### Added

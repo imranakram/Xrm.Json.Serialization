@@ -8,7 +8,31 @@
 
     internal class XrmContractResolver : DefaultContractResolver
     {
+        #region Internal Fields
+
+        /// <summary>
+        /// The single resolver instance every converter in this assembly routes through.
+        /// <para>
+        /// <see cref="DefaultContractResolver"/> caches the <see cref="Newtonsoft.Json.Serialization.JsonContract"/>
+        /// it builds for each type, and that cache lives on the instance. Handing out a fresh
+        /// instance per serialize call therefore threw the cache away every time and forced
+        /// every type on the graph to be re-resolved by reflection. Sharing one instance is
+        /// safe: <see cref="converters"/> is never mutated after construction, and the base
+        /// class's contract cache is thread-safe.
+        /// </para>
+        /// </summary>
+        internal static readonly XrmContractResolver Shared = new XrmContractResolver();
+
+        #endregion Internal Fields
+
         #region Private Fields
+
+        /// <summary>
+        /// Fallback converter for every type without a dedicated one. Held as a single instance
+        /// because it carries no state, and <see cref="ResolveContractConverter"/> is on the
+        /// path that <see cref="Shared"/> exists to keep cheap.
+        /// </summary>
+        private static readonly BasicsConverter Basics = new BasicsConverter();
 
         private readonly Dictionary<Type, JsonConverter> converters;
 
@@ -41,7 +65,7 @@
         {
             if (!converters.TryGetValue(objectType, out var matchingConverter))
             {
-                return new BasicsConverter();
+                return Basics;
             }
 
             return matchingConverter;

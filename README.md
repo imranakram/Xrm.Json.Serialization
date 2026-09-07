@@ -16,6 +16,7 @@ Compact JSON serialization library for Microsoft Dynamics 365/CRM/Dataverse enti
 - ✅ Built for **.NET Framework 4.6.2** - Plugin compatible!
 - ✅ **FetchXML support** - Properly handles linked entities with AliasedValue
 - ✅ **Helper class** - EntitySerializer for simplified usage
+- ✅ **Fast in bulk** - contracts are resolved once per process, not once per entity
 
 ## Supported Data Types
 
@@ -535,6 +536,52 @@ Traditional Dynamics 365 entity serialization can be verbose. This library provi
 - **Easier debugging** - Human-readable JSON structure
 - **Type safety** - Preserves CRM data type information
 
+## Performance
+
+Serialization is designed to stay cheap when you run it in a loop - exporting a table, filling a
+cache, or writing an audit trail for a batch job.
+
+Measured on .NET Framework 4.8 x64, 100 000 entities of five attributes each:
+
+| | Time |
+|---|---|
+| Xrm.Json.Serialization 1.2026.9.0 | **0.34 s** |
+| Plain Newtonsoft (reflective, no CRM converters) | 1.03 s |
+| Xrm.Json.Serialization 1.2026.3.0 and earlier | 82.31 s |
+
+The earlier figure was a bug, not a design limit. `EntityConverter` and
+`EntityCollectionConverter` assigned `serializer.ContractResolver = new XrmContractResolver()`
+on every call. Newtonsoft's `DefaultContractResolver` caches the `JsonContract` it builds for
+each type **on the instance**, so a fresh instance per call discarded that cache and forced
+every type on the graph - `Entity`, `AttributeCollection`, `EntityReference`, `Money`,
+`OptionSetValue`, `Guid`, `DateTime` - to be re-resolved by reflection each time.
+
+From 1.2026.9.0 the converters route through a single shared resolver. Output is byte-identical;
+there is no change to the JSON format or to the API.
+
+### If you build your own settings
+
+Reuse one settings object rather than constructing one per call, and let the library supply the
+resolver:
+
+```csharp
+// Do this once, at whatever passes for startup in your host.
+private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+{
+    Converters = new List<JsonConverter> { new EntityConverter(), new EntityReferenceConverter() },
+    NullValueHandling = NullValueHandling.Ignore
+};
+
+var json = JsonConvert.SerializeObject(entity, Settings);
+```
+
+`EntitySerializer` already does this internally, so `EntitySerializer.Serialize(entity)` needs
+no setup and is the fastest route for most callers.
+
+> **Note:** if you set `JsonConvert.DefaultSettings`, remember Newtonsoft treats it as a
+> **factory** and invokes it on *every* `SerializeObject` / `DeserializeObject` call. Keep the
+> lambda cheap - return a cached instance rather than building a new one each time.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues and pull requests.
@@ -561,6 +608,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Issues](https://github.com/imranakram/Xrm.Json.Serialization/issues)
 
 ## Changelog
+
+### Version 1.2026.9.0 (September 2026)
+- ✅ **FIX:** ~240x faster bulk serialization - the converters no longer allocate a new `XrmContractResolver` per call, which was discarding Newtonsoft's per-instance contract cache (100 000 entities: 82.31 s → 0.34 s, byte-identical output)
+- ✅ **TESTS:** Added 9 tests pinning resolver sharing, full-type round trips and a bulk-throughput guard
+- ✅ **DOCS:** Added a Performance section covering settings reuse and the `JsonConvert.DefaultSettings` factory pitfall
 
 ### Version 1.2026.3.0 (March 2026)
 - ✅ **NEW:** AliasedValue converter for FetchXML linked entity support

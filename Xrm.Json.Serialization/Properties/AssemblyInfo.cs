@@ -19,6 +19,11 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
+// The test project asserts that the converters share one XrmContractResolver instance
+// rather than allocating a cold-cache one per call. That is an implementation detail, so
+// the type stays internal and the tests are let in instead.
+[assembly: InternalsVisibleTo("Xrm.Json.Serialization.Tests")]
+
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("19d18e8d-e967-4cbe-8822-617bd1feeaa4")]
 
